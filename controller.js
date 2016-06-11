@@ -16,7 +16,10 @@
         vm.addNewTodo = function () {
         	vm.checkList.push(vm.thingsTodo);
         }
-       
+       	vm.deleteTodo = function ( idx ) {
+       		vm.checkList.splice(idx, 1);
+       		console.log(idx);
+       	}
 
         activate();
 
