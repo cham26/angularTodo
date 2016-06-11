@@ -20,29 +20,42 @@
 <body>
 	<div ng-app="chamApp" 
 		 ng-controller="chamController as vm">
-		 	<div class="row">
-		 		<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-		 				<input type="text" 
-		 				class="form-control" 
-		 				ng-model="vm.thingsTodo">
-		 		</div>
-		 		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-		 			<button type="button" 
-		 					class="btn btn-primary" 
-		 					ng-click="vm.addNewTodo()"
-		 					>button
-		 			</button>
-		 		</div>
-	
-		 	<h1 ng-repeat="activity in vm.checkList"> {{activity}} 
-		 		<button type="button" 
-		 				class="btn btn-default"
-		 				ng-click="vm.deleteTodo($index)"
-		 				>Delete
-		 		</button>
-		 	</h1>
+		 <h1>Things To Do</h1>
+		 	<form name="toDoForm" novalidate>
+			 	<div class="input group">
+			 		<div class="row">
+				 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 				<input type="text" 
+				 					   class="form-control" 
+				 					   ng-model="vm.thingsTodo">
+				 		</div>
+				 		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+				 			<button type="button" 
+				 					class="btn btn-primary" 
+				 					ng-click="vm.addNewTodo()">Button
+				 			</button>
+				 		</div>
+			 		</div>
+			 		<label>List of Things To Do</label>
+			 			<div class="input group">
+							<div ng-repeat="activity in vm.checkList">
+					 			<div class="row">
+				 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				 						{{activity}}
+				 					</div>
+				 					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
-		 	</div>
+						 				<button type="button" 
+						 						class="btn btn-default"
+						 						ng-click="vm.deleteTodo($index)">Delete
+						 				</button>
+						 			</div>
+					 			</div>
+					 			<br>
+							</div>
+			 			</div>
+			 	</div>
+		 	</form>	
 	</div>
 
 <script src="app.js"></script>
