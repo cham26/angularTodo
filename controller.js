@@ -11,19 +11,18 @@
     function chamController($scope) {
         var vm = this;
         vm.title = 'chamController';
-        vm.cham = 'naughty girl';
-        vm.food = 'Apple';
+        vm.thingsTodo = '';
+        vm.checkList = [];
         vm.addNewTodo = function () {
-        	vm.savedValue = vm.food;
-        	console.log(vm.food);
+        	vm.checkList.push(vm.thingsTodo);
         }
+       
 
         activate();
 
         ////////////////
 
         function activate() {
-        	console.log(vm.title);
         }
 
         

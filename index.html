@@ -22,18 +22,18 @@
 		 ng-controller="chamController as vm">
 		 	<div class="row">
 		 		<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-		 				 <input type="text" 
-		 				 class="form-control" 
-		 				 ng-model="vm.food">
+		 				<input type="text" 
+		 				class="form-control" 
+		 				ng-model="vm.thingsTodo">
 		 		</div>
 		 		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 		 			<button type="button" 
 		 					class="btn btn-primary" 
-		 					ng-click="vm.addNewTodo()">button</button></div>
+		 					ng-click="vm.addNewTodo()">button
+		 			</button>
 		 		</div>
-		
-		 	<h1>Food Intake: {{vm.food}}</h1>
-		 	<h1>Saved Value: {{vm.savedValue}}</h1>
+	
+		 	<h1 ng-repeat="activity in vm.checkList">{{activity}}</h1>
 		 	</div>
 	</div>
 
