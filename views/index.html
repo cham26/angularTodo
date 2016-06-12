@@ -16,7 +16,6 @@
 
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<div ng-app="chamApp" 
@@ -41,7 +40,7 @@
 				 			</button>
 				 		</div>
 				 		<div class="error" ng-show="toDoForm.writeToDo.$dirty && toDoForm.writeToDo.$error.maxlength">
-				 			<span>EXCEEDS REUIRED LETTERS.</span>
+				 			<span>EXCEEDS REQUIRED LETTERS.</span>
 				 		</div>
 				 		<div class="error" ng-show="toDoForm.writeToDo.$dirty && toDoForm.writeToDo.$error.minlength">
 				 			<span>NOT ENOUGH LETTERS!</span>
@@ -52,7 +51,7 @@
 							<div ng-repeat="activity in vm.checkList">
 					 			<div class="row">
 				 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-				 						{{activity}}
+				 						{{activity}}test{{vm.checkList}}
 				 					</div>
 				 					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
@@ -69,7 +68,7 @@
 		 	</form>	
 	</div>
 
-<script src="app.js"></script>
-<script src="controller.js"></script>
+<script src="javascripts/app.js"></script>
+<script src="javascripts/controller.js"></script>
 </body>
 </html>
