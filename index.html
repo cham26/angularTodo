@@ -16,6 +16,7 @@
 
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<div ng-app="chamApp" 
@@ -27,13 +28,23 @@
 				 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 				 				<input type="text" 
 				 					   class="form-control" 
-				 					   ng-model="vm.thingsTodo">
+				 					   ng-minlength="3" 
+				 					   ng-maxlength="15"
+				 					   name="writeToDo"
+				 					   ng-model="vm.thingsTodo" required>
 				 		</div>
 				 		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 				 			<button type="button" 
 				 					class="btn btn-primary" 
-				 					ng-click="vm.addNewTodo()">Button
+				 					ng-click="vm.addNewTodo()"
+				 					ng-disabled="toDoForm.$invalid">Button
 				 			</button>
+				 		</div>
+				 		<div class="error" ng-show="toDoForm.writeToDo.$dirty && toDoForm.writeToDo.$error.maxlength">
+				 			<span>EXCEEDS REUIRED LETTERS.</span>
+				 		</div>
+				 		<div class="error" ng-show="toDoForm.writeToDo.$dirty && toDoForm.writeToDo.$error.minlength">
+				 			<span>NOT ENOUGH LETTERS!</span>
 				 		</div>
 			 		</div>
 			 		<label>List of Things To Do</label>
@@ -46,7 +57,7 @@
 				 					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
 						 				<button type="button" 
-						 						class="btn btn-default"
+						 						class="btn-danger"
 						 						ng-click="vm.deleteTodo($index)">Delete
 						 				</button>
 						 			</div>
