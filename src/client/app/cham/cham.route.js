@@ -20,7 +20,11 @@
           templateUrl: 'app/cham/cham.html',
           controller: 'chamController',
           controllerAs: 'vm',
-          title: 'cham'
+          title: 'Cham',
+          settings: {
+            nav: 3,
+            content: '<i class="fa fa-lock"></i> Cham'
+          }
         } 
       }
     ];

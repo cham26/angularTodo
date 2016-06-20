@@ -5,12 +5,13 @@
         .module('app.chamApp')
         .factory('todoService', todoService);
 
-    todoService.$inject = [];
+    todoService.$inject = ['$http'];
 
     /* @ngInject */
-    function todoService() {
-    	var vm = this;
-		vm.thingsTodo = '';
+    function todoService($http) {
+        
+        var vm = this;
+        
         var service = {
             getAllList: getAllList
         };
@@ -19,8 +20,17 @@
         ////////////////
 
         function getAllList() {
-        	return [vm.thingsTodo];
-        	console.log('hello');
+            return $http.get('http://jsonplaceholder.typicode.com/comments')
+            .then(function(response){
+               return response;
+            })
+            .catch(function(response){
+                console.log(response)
+            }) 
         }
+        
+    
+
+
     }
 })();

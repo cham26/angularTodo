@@ -21,6 +21,13 @@
        		vm.checkList.splice(idx, 1);
        		console.log(idx);
        	}
+        
+        vm.dataEntered =  todoService.getAllList()
+           .then(function(response) {
+               vm.dataEntered = response.data;
+               console.log(vm.dataEntered)
+       });
+
         activate();
 
         ////////////////
