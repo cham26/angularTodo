@@ -3,6 +3,6 @@ angular
     .directive("catalog", function() {
 		return {
 			restrict: "E",
-			templateUrl: "app/cham/component/cham.component.html"
+			templateUrl: "app/cham/component/chamTodo.component.html"
 		}
 })
