@@ -21,12 +21,17 @@
        		vm.checkList.splice(idx, 1);
        		console.log(idx);
        	}
-        
+
         vm.dataEntered =  todoService.getAllList()
            .then(function(response) {
                vm.dataEntered = response.data;
                console.log(vm.dataEntered)
        });
+
+        vm.hover = function () {
+          console.log("This bird can indeed fly!");
+        }
+
 
         activate();
 
