@@ -32,6 +32,22 @@
           console.log("This bird can indeed fly!");
         }
 
+        vm.bacteria = function($scope) {
+          $scope.nameOfBacteria = [];
+
+          vm.saySalmonella = function() {
+            $scope.nameOfBacteria.push("I cause Food poisoning!");
+          };
+
+          vm.sayPseudomonas = function() {
+            $scope.nameOfBacteria.push("I can cause Septic shock!");
+          };
+
+          vm.sayInfluenza = function() {
+            $scope.nameOfBacteria.push("Im responsible for your flu!");
+          };
+        }
+
 
         activate();
 
