@@ -11,11 +11,13 @@
     function logInController($scope) {
         var vm = this;
         vm.title = 'logInController';
+        vm.user = [];
         vm.userName = "";
         vm.userEmail = "";
         vm.userCash = "";
         vm.validateForm = function() {
-            console.log(vm.userName, vm.userEmail, vm.userCash);
+            vm.user.push(vm.userName, vm.userEmail, vm.userCash);
+            console.log(vm.user);
         }
         activate();
 

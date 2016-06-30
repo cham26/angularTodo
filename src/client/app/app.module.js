@@ -8,6 +8,7 @@
     'app.chamApp',
     'app.logInApp',
     'app.dashboard',
+    'ui.bootstrap',
     'app.layout'
   ]);
 

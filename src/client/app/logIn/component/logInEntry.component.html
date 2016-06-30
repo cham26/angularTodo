@@ -3,43 +3,44 @@
 			 		<div class="input group">
 				 		<div class="row">
 					 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-					 		<br><br>
-						 		Name: 
-						 		<input type="text" 
-						 			   ng-model="vm.userName" 
-						 			   name="uName" 
-						 			   required>
-							 		<span style="color:red" 
-							 			  ng-show="userForm.$submitted || userForm.uName.$touched">
-							 			<span ng-show="userForm.uName.$error.required">Complete Name is required.</span>
-							 		</span>
-								<br><br>
-								Email: 
-								<input type="email" 
-									   ng-model="vm.userEmail" 
-									   name="uEmail" 
-									   required>
-									<span style="color:red" 
-										  ng-show="userForm.$submitted || userForm.uEmail.$touched">
-							 			<span ng-show="userForm.uEmail.$error.required">Email address is required.</span>
-							 			<span ng-show="userForm.uEmail.$error.email">Valid Email address is required.</span>
-							 		</span>
-								<br><br>
-								Cash: <input type="number" 
-											 ng-model="vm.userCash" 
-											 name="uCash"
-											 min="1"
-											 max="10000">
-										<span ng-show="userForm.uCash.$error.integer">Enter a valid amount.</span>
-										<span ng-show="userForm.uCash.$error.min || userForm.uCash.$error.max">Value must be between 1 to 10,000!</span>
-								<br><br>
-								Date:
-								<br><br>
+						 		<div>
+							 		Name: 
+							 		<input type="text" 
+							 			   ng-model="vm.userName" 
+							 			   name="uName" 
+							 			   required>
+								 		<span 
+								 			  ng-show="userForm.$submitted || userForm.uName.$touched">
+								 			<span ng-show="userForm.uName.$error.required">Complete Name is required.</span>
+								 		</span>
+								</div>
+								<div>
+									Email: 
+									<input type="email" 
+										   ng-model="vm.userEmail" 
+										   name="uEmail" 
+										   required>
+										<span ng-show="userForm.$submitted || userForm.uEmail.$touched">
+									 		<span ng-show="userForm.uEmail.$error.required">Email address is required.</span>
+									 		<span ng-show="userForm.uEmail.$error.email">Valid Email address is required.</span>
+								 		</span>
+								</div>
+								<div>
+									Cash: 
+									<input type="number" 
+										   ng-model="vm.userCash" 
+										   name="uCash"
+										   min="1"
+										   max="10000">
+												<span ng-show="userForm.uCash.$error.integer">Enter a valid amount.</span>
+												<span ng-show="userForm.uCash.$error.min || userForm.uCash.$error.max">Value must be between 1 to 10,000!</span>
+								</div>
+								
 								<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 									<button type="button" 
 									 		class="btn btn-primary" 
 									 		ng-click="vm.validateForm()"
-									 		ng-disabled="userForm.uEmail.$invalid || userForm.uEmail.$error.required &&userForm.uEmail.$error.email || userForm.uCash.$error.integer && userForm.uCash.$error.min || userForm.uCash.$error.max">Submit
+									 		ng-disabled="userForm.$invalid">Submit
 									</button>
 								</div>
 							</div>

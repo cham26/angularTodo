@@ -3,6 +3,9 @@
 
     angular
         .module('app.logInApp', [
-            'app.core'
+            'app.core',
+            'ui.bootstrap',
+            'ui.bootstrap.datepicker',
+            
         ]);
 })();
