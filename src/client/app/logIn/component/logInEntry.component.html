@@ -3,9 +3,10 @@
 			 		<div class="input group">
 				 		<div class="row">
 					 		<div class="col-lg-6">
-						 		<div>
-						 			Name:
+						 		<div class="form-group">
+						 			<label for="name">Name:</label>
 							 		<input type="text" 
+							 			   class="form-control"
 										   ng-model="vm.user.name" 
 										   name="uName" 
 										   required />
@@ -17,9 +18,10 @@
 										 	  ng-show="userForm.uName.$touched && userForm.uName.$error.required">Complete Name is required.
 										</span>		
 								</div>
-								<div>
-									Email: 
+								<div class="form-group">
+									<label for="email">Email:</label>
 									<input type="email" 
+										   class="form-control"
 										   ng-model="vm.user.email" 
 										   name="uEmail" 
 										   required>
@@ -31,9 +33,10 @@
 											  ng-show="userForm.uEmail.$touched && userForm.uEmail.$error.required">Valid Email address is required.
 								 		</span>
 								</div>
-								<div>
-									Cash: 
+								<div class="form-group">
+									<label for="cash">Cash:</label>
 									<input type="number" 
+										   class="form-control"
 										   ng-model="vm.user.cash" 
 										   name="uCash"
 										   min="1"
@@ -46,27 +49,28 @@
 											  ng-show="userForm.uCash.$error.min && userForm.uCash.$error.max">
 										</span>
 								</div>
-								<!-- TODO: datepicker <div>
-									Date:
-        										<input type="text" 
-        											   class="form-control" 
-        											   uib-datepicker-popup="{{vm.format}}" 
-        											   ng-model="vm.dt" 
-        											   is-open="vm.popup.opened" 
-        											   datepicker-options="vm.dateOptions" 
-        											   ng-required="true" 
-        											   close-text="Close">
-										         <span class="input-group-btn">
-										            <button type="button" 
-												            class="btn btn-default" 
-												            ng-click="vm.open()">
-										            		<i class="glyphicon glyphicon-calendar"></i>
-										            </button>
-										         </span>
-										   
-								</div> -->
-								
-								<div class="col-lg-2">
+								<div class="form-group">
+									<label for="date">Date:</label>
+									<span class="input-group">
+	          							<input type="text" 
+	          								   class="form-control" 
+	          								   uib-datepicker-popup 
+	          								   ng-model="vm.user.date" 
+	          								   is-open="vm.isDatePickerOpen" 
+	          								   ng-required="true"
+	          								   min-date="vm.minDate"
+	          								   max-date="vm.maxDate"
+	          								   show-button-bar="false">
+									        <span class="input-group-btn">
+									            <button type="button" 
+									            		class="btn btn-default" 
+									            		ng-click="vm.isDatePickerOpen = !vm.isDatePickerOpen">
+									            		<i class="glyphicon glyphicon-calendar"></i>
+									          	</button>
+									        </span>
+								    </span>
+								</div>
+								<div class="submit-button" class="col-lg-2">
 									<button type="button" 
 									 		class="btn btn-primary" 
 									 		ng-click="vm.validateForm()"
