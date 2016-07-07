@@ -22,18 +22,7 @@
         vm.maxDate = new Date();
         vm.maxDate.setDate(vm.minDate.getDate() +10);
         console.log(vm.minDate);
-        console.log(vm.maxDate)
-        
-        
-       
-        
-          
-       
-
-
-        
-
-
+        console.log(vm.maxDate);
 
         activate();
 

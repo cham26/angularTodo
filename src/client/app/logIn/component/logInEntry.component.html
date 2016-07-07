@@ -90,9 +90,10 @@
 				                 		   uib-datepicker-popup
 				                 		   ng-model="vm.user.date"
 				                 		   is-open="vm.isDatePickerOpen"
-				                 		   
-				                 		   min-date={{vm.minDate}}
-				                 		   max-date={{vm.maxDate}}
+				                 		   ng-reuired="true"
+				                 		   datepicker-options="{minDate: vm.minDate,
+                   							maxDate: vm.maxDate}"
+        
 				                 		   show-button-bar="false"
 				                 		   show-weeks="false">
 				              		<span class="input-group-btn">
