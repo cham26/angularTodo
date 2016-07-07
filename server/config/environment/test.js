@@ -5,7 +5,7 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/angulartodo-test'
+    uri: 'mongodb://localhost/chamapp-test'
   },
   sequelize: {
     uri: 'sqlite://',

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularTodoApp.admin')
+angular.module('chamAppApp.admin')
   .config(function($stateProvider) {
     $stateProvider.state('admin', {
       url: '/admin',

@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('angularTodoApp', ['angularTodoApp.auth', 'angularTodoApp.admin',
-    'angularTodoApp.constants', 'ngCookies', 'ngResource', 'ngSanitize', 'ui.router',
-    'ui.bootstrap', 'validation.match'
+angular.module('chamAppApp', ['chamAppApp.auth', 'chamAppApp.admin', 'chamAppApp.constants',
+    'ngCookies', 'ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'validation.match'
   ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');

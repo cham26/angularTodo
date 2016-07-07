@@ -14,6 +14,6 @@
     }
   }
 
-  angular.module('angularTodoApp.admin')
+  angular.module('chamAppApp.admin')
     .controller('AdminController', AdminController);
 })();

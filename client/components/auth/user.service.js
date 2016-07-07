@@ -21,6 +21,6 @@
     });
   }
 
-  angular.module('angularTodoApp.auth')
+  angular.module('chamAppApp.auth')
     .factory('User', UserResource);
 })();

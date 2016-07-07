@@ -30,7 +30,7 @@
     }
   }
 
-  angular.module('angularTodoApp')
+  angular.module('chamAppApp')
     .component('main', {
       templateUrl: 'app/main/main.html',
       controller: MainController

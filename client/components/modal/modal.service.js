@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularTodoApp')
+angular.module('chamAppApp')
   .factory('Modal', function($rootScope, $uibModal) {
     /**
      * Opens a modal

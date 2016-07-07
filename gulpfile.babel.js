@@ -1,4 +1,4 @@
-// Generated on 2016-07-03 using generator-angular-fullstack 3.7.6
+// Generated on 2016-07-07 using generator-angular-fullstack 3.7.6
 'use strict';
 
 import _ from 'lodash';
@@ -523,7 +523,7 @@ gulp.task('build:client', ['styles', 'html', 'constant', 'build:images'], () => 
 gulp.task('html', function() {
     return gulp.src(`${clientPath}/{app,components}/**/*.html`)
         .pipe(plugins.angularTemplatecache({
-            module: 'angularTodoApp'
+            module: 'chamAppApp'
         }))
         .pipe(gulp.dest('.tmp'));
 });
@@ -531,7 +531,7 @@ gulp.task('html', function() {
 gulp.task('constant', function() {
   let sharedConfig = require(`./${serverPath}/config/environment/shared`);
   return plugins.ngConstant({
-    name: 'angularTodoApp.constants',
+    name: 'chamAppApp.constants',
     deps: [],
     wrap: true,
     stream: true,

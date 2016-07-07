@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularTodoApp')
+angular.module('chamAppApp')
   .directive('navbar', () => ({
     templateUrl: 'components/navbar/navbar.html',
     restrict: 'E',

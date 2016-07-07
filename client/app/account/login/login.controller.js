@@ -29,5 +29,5 @@ class LoginController {
   }
 }
 
-angular.module('angularTodoApp')
+angular.module('chamAppApp')
   .controller('LoginController', LoginController);

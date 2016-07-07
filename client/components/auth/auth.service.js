@@ -185,6 +185,6 @@
     return Auth;
   }
 
-  angular.module('angularTodoApp.auth')
+  angular.module('chamAppApp.auth')
     .factory('Auth', AuthService);
 })();

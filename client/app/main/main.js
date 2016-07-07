@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularTodoApp')
+angular.module('chamAppApp')
   .config(function($stateProvider) {
     $stateProvider.state('main', {
       url: '/',

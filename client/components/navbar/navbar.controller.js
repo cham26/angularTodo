@@ -12,5 +12,5 @@ class NavbarController {
 
 }
 
-angular.module('angularTodoApp')
+angular.module('chamAppApp')
   .controller('NavbarController', NavbarController);

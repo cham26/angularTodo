@@ -23,5 +23,5 @@ class SettingsController {
   }
 }
 
-angular.module('angularTodoApp')
+angular.module('chamAppApp')
   .controller('SettingsController', SettingsController);

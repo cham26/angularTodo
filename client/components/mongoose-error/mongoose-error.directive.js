@@ -4,7 +4,7 @@
  * Removes server error when user updates input
  */
 
-angular.module('angularTodoApp')
+angular.module('chamAppApp')
   .directive('mongooseError', function() {
     return {
       restrict: 'A',

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularTodoApp')
+angular.module('chamAppApp')
   .directive('footer', function() {
     return {
       templateUrl: 'components/footer/footer.html',

@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('angularTodoApp.util', []);
+angular.module('chamAppApp.util', []);

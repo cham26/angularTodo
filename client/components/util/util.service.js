@@ -65,6 +65,6 @@
     return Util;
   }
 
-  angular.module('angularTodoApp.util')
+  angular.module('chamAppApp.util')
     .factory('Util', UtilService);
 })();

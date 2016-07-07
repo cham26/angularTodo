@@ -3,7 +3,7 @@
 describe('Component: mainComponent', function() {
 
   // load the controller's module
-  beforeEach(module('angularTodoApp'));
+  beforeEach(module('chamAppApp'));
   beforeEach(module('stateMock'));
 
   var scope;

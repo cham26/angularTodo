@@ -27,6 +27,6 @@
     };
   }
 
-  angular.module('angularTodoApp.auth')
+  angular.module('chamAppApp.auth')
     .factory('authInterceptor', authInterceptor);
 })();

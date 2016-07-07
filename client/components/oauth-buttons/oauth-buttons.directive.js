@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularTodoApp')
+angular.module('chamAppApp')
   .directive('oauthButtons', function() {
     return {
       templateUrl: 'components/oauth-buttons/oauth-buttons.html',

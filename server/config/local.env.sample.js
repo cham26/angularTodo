@@ -7,7 +7,7 @@
 
 module.exports = {
   DOMAIN:           'http://localhost:9000',
-  SESSION_SECRET:   'angulartodo-secret',
+  SESSION_SECRET:   'chamapp-secret',
 
   GOOGLE_ID:        'app-id',
   GOOGLE_SECRET:    'secret',

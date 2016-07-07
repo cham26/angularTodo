@@ -39,5 +39,5 @@ class SignupController {
   }
 }
 
-angular.module('angularTodoApp')
+angular.module('chamAppApp')
   .controller('SignupController', SignupController);
