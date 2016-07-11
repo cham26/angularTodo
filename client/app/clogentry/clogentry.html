@@ -1,0 +1,123 @@
+<h1>Log In Form</h1>
+	<form name="userForm" novalidate>
+	  	<div class="input group">
+	    	<div class="row">
+	     		<div class="col-lg-10">
+	        		<div class="row">
+	          			<div class="form-group">
+	            			<div class="col-sm-2 text-right">
+					            <span class="control-label">
+					            	<b>Name:</b>
+					            </span>
+	            			</div>
+	            			<div class="col-sm-10">
+					            <input type="text"
+						               class="form-control"
+						               ng-model="vm.user.name"
+						               name="uName"
+						               required />
+					            <span class="glyphicon glyphicon-question-sign fa-x2"
+						              uib-popover="First and Last Name should be entered."
+						              popover-trigger="mouseenter">
+					            </span>
+					            <span class="caution"
+					                  ng-show="userForm.uName.$touched && userForm.uName.$error.required">Complete Name is required.
+					            </span>
+	            			</div>
+	          			</div>
+	        		</div>
+	        		<br>
+	        		<div class="row">
+	          			<div class="form-group">
+				            <div class="col-sm-2 text-right">
+					            <span class="control-label">
+					              	<b>Email:</b>
+					            </span>
+				            </div>
+				            <div class="col-sm-10">
+					            <input type="email"
+						               class="form-control"
+						               ng-model="vm.user.email"
+						               name="uEmail"
+						               required>
+				              	<span class="glyphicon glyphicon-question-sign fa-x2"
+					                  uib-popover="Ex: johnsmith@gmail.com"
+					                  popover-trigger="mouseenter">
+				              	</span>
+				              	<span class="caution"
+				                	  ng-show="userForm.uEmail.$touched && userForm.uEmail.$error.required">Valid Email address is required.
+				              	</span>
+				            </div>
+	          			</div>
+	        		</div>
+	        		<br>
+			        <div class="row">
+			          	<div class="form-group">
+				            <div class="col-sm-2 text-right">
+					            <span class="control-label">
+					             	<b>Cash:</b>
+					            </span>
+				            </div>
+				            <div class="col-sm-10">
+					            <input type="number"
+						               class="form-control"
+						               ng-model="vm.user.cash"
+						               name="uCash"
+						               min="1"
+						               max="10000">
+					            <span class="glyphicon glyphicon-question-sign fa-x2"
+					                  uib-popover="Value must be between 1 to 10,000."
+					                  popover-trigger="mouseenter">
+					            </span>
+					            <span class="caution"
+					                  ng-show="userForm.uCash.$error.min && userForm.uCash.$error.max">
+					            </span>
+				            </div>
+			          	</div>
+			        </div>
+	        		<br>
+			        <div class="row">
+			          	<div class="form-group">
+				            <div class="col-sm-2 text-right">
+					            <span class="control-label">
+					            	<b>Date:</b>
+					            </span>
+				            </div>
+			            	<div class="col-sm-10">
+			              		<span class="input-group datepicker">
+			              			<input type="text"
+				                 		   class="form-control"
+				                 		   uib-datepicker-popup
+				                 		   ng-model="vm.user.date"
+				                 		   is-open="vm.isDatePickerOpen"
+				                 		   ng-reuired="true"
+				                 		   datepicker-options="{minDate: vm.minDate,
+                   							maxDate: vm.maxDate}"
+        
+				                 		   show-button-bar="false"
+				                 		   show-weeks="false">
+				              		<span class="input-group-btn">
+				              			<button type="button"
+						              			class="btn btn-default"
+						              			ng-click="vm.isDatePickerOpen = !vm.isDatePickerOpen">
+				              					<i class="glyphicon glyphicon-calendar"></i>
+				              			</button>
+				              		</span>
+			              		</span>
+			            	</div>
+			          	</div>
+			        </div>
+	        		<br>
+			        <div class="row">
+			          	<div class="col-sm-6 text-right">
+			            	<button type="button" 
+					            	class="btn btn-primary"
+					            	ng-click="vm.validateForm()"
+					            	ng-disabled="userForm.$invalid">Submit
+			            	</button>
+			          	</div>
+			        </div>
+	      		</div>
+	    	</div>
+	  	</div>
+ 	</form>
