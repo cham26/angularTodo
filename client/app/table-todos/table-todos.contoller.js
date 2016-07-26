@@ -5,10 +5,10 @@
         .module('chamAppApp.table-todos')
         .controller('TableTodosController', TableTodosController);
 
-    TableTodosController.$inject = ['$scope', 'TodoService'];
+    TableTodosController.$inject = ['$scope', 'TodoService', 'ModalService'];
 
     /* @ngInject */
-    function TableTodosController($scope, TodoService) {
+    function TableTodosController($scope, TodoService, ModalService) {
         var vm = this;
         vm.title = 'TableTodosController';
         vm.thingsTodo = '';
@@ -17,15 +17,19 @@
         	vm.checkList.push(vm.thingsTodo);
             console.log(vm.thingsTodo);
         };
-       	vm.deleteTodo = function ( idx ) {
-       		vm.checkList.splice(idx, 1);
-       		console.log(idx);
-       	};
+        
+       	vm.deleteTodo = ModalService.open()
+        // .then(function(result) {
+        //     vm.deleteTodo = result.data;
+        //     console.log(vm.deleteTodo);
+        //  		// vm.checkList.splice(idx, 1);
+        //  		// console.log(idx);
+       	// });
 
         vm.dataEntered = TodoService.getAllList()
            .then(function(response) {
                vm.dataEntered = response.data;
-               console.log(vm.dataEntered);
+               
        });
 
         vm.hover = function () {
