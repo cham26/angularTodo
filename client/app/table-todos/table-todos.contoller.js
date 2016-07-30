@@ -18,7 +18,9 @@
             console.log(vm.thingsTodo);
         };
         
-       	vm.deleteTodo = ModalService.open()
+       	vm.deleteTodo = function() {
+          ModalService.open();
+        };
         // .then(function(result) {
         //     vm.deleteTodo = result.data;
         //     console.log(vm.deleteTodo);
