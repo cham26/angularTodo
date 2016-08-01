@@ -3,22 +3,25 @@
 
     angular
         .module('chamAppApp.table-todos')
-        .controller('ModalController', ModalController);
+        .controller('ModalInstanceController', ModalInstanceController);
 
-    ModalController.$inject = ['$scope', '$uibModal', 'items'];
+    ModalInstanceController.$inject = ['$scope', '$uibModalInstance', 'options'];
 
     /* @ngInject */
-    function ModalController($scope, $uibModal, items) {
+    function ModalInstanceController($scope, $uibModalInstance, options) {
         
-        $scope.title = 'ModalController';
-        $scope.category = items;
+        $scope.title = 'ModalInstanceController';
+        $scope.category = options.items;
+        
 
-        $scope.ok = function() {
-        	$uibModal.close();
+        $scope.ok = function(x) {
+        	options.cb(x);
+        	console.log(x);
+        	$uibModalInstance.close($scope.category);
         };
 
         $scope.cancel = function() {
-        	$uibModal.dismiss('cancel');
+        	$uibModalInstance.dismiss('cancel');
         };
 
         activate();

@@ -18,8 +18,13 @@
             console.log(vm.thingsTodo);
         };
         
-       	vm.deleteTodo = function() {
-          ModalService.open();
+       	vm.deleteTodo = function(activity) {
+          console.log(activity);
+          ModalService.open(activity, 'lg', function(){
+            vm.checkList.splice(result, 1);
+            console.log('modal');
+          });
+             
         };
         // .then(function(result) {
         //     vm.deleteTodo = result.data;

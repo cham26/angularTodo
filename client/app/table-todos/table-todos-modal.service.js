@@ -10,35 +10,32 @@
     /* @ngInject */
     function ModalService($uibModal, $log) {
     	var vm = this;
-    	var items = [];
     	vm.animationsEnabled = true;
-    	vm.open = function (size) {
+    	vm.open = function (items, size, cb) {
+    		var options = {},
+    		options.cb = cb || angular.noop,
+    		options.items = items;
     	var modalInstance = $uibModal.open({
 		      animation: vm.animationsEnabled,
 		      templateUrl: 'app/table-todos/myModalContent.html',
-		      controller: 'ModalController',
+		      controller: 'ModalInstanceController',
 		      size: size,
 		      resolve: {
-        		items: function () {
-          		return items;
+        		options: function () {
+          		return options;
         	}
       	}
       });
     
-        modalInstance.result.then(function() {
-        	console.log('test');
-        });
-      };
+        
 
-        vm.toggleAnimation = function() {
-        	vm.animationsEnabled = !vm.animationsEnabled;
-        };
+        
 
         ////////////////
         var ModalService = {
             open: vm.open
         };
-        return ModalService;
+        return ModalService.result;
         
     };
 })();
