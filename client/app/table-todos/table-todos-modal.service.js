@@ -3,7 +3,7 @@
 
     angular
         .module('chamAppApp.table-todos')
-        .factory('ModalService', ModalService);
+        .service('ModalService', ModalService);
 
     ModalService.$inject = ['$uibModal', '$log'];
 
@@ -12,30 +12,32 @@
     	var vm = this;
     	vm.animationsEnabled = true;
     	vm.open = function (items, size, cb) {
-    		var options = {},
-    		options.cb = cb || angular.noop,
+    		var options = {};
+    		options.cb = cb || angular.noop;
     		options.items = items;
-    	var modalInstance = $uibModal.open({
+
+    		var modalInstance = $uibModal.open({
 		      animation: vm.animationsEnabled,
 		      templateUrl: 'app/table-todos/myModalContent.html',
 		      controller: 'ModalInstanceController',
 		      size: size,
 		      resolve: {
-        		options: function () {
-          		return options;
-        	}
-      	}
-      });
-    
-        
-
-        
+                   options: function() {
+                        console.log(options)
+                        
+                        return options;
+                    }
+                }
+            });
 
         ////////////////
-        var ModalService = {
-            open: vm.open
-        };
         return ModalService.result;
-        
+
+       };
+        return {
+             open: vm.open
+         };
+       
     };
+
 })();

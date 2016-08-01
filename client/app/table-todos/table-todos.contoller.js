@@ -13,17 +13,15 @@
         vm.title = 'TableTodosController';
         vm.thingsTodo = '';
         vm.checkList = [];
-        vm.addNewTodo = function () {
-        	vm.checkList.push(vm.thingsTodo);
-            console.log(vm.thingsTodo);
-        };
+        vm.addNewTodo = function() {
+            vm.checkList.push(vm.thingsTodo);
+         };
         
        	vm.deleteTodo = function(activity) {
-          console.log(activity);
-          ModalService.open(activity, 'lg', function(){
-            vm.checkList.splice(result, 1);
-            console.log('modal');
-          });
+            console.log(activity);
+            ModalService.open(activity, 'lg', function(result) {
+                vm.checkList.splice(result, 1);
+            });
              
         };
         // .then(function(result) {
