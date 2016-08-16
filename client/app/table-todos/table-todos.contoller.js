@@ -16,20 +16,14 @@
         vm.addNewTodo = function() {
             vm.checkList.push(vm.thingsTodo);
          };
-        
+        function showMessage() {alert("You have successfully deleted the item")};
+      
        	vm.deleteTodo = function(activity) {
-            console.log(activity);
             ModalService.open(activity, 'lg', function(result) {
                 vm.checkList.splice(result, 1);
-            });
-             
+            })
+            .then(() => showMessage());   
         };
-        // .then(function(result) {
-        //     vm.deleteTodo = result.data;
-        //     console.log(vm.deleteTodo);
-        //  		// vm.checkList.splice(idx, 1);
-        //  		// console.log(idx);
-       	// });
 
         vm.dataEntered = TodoService.getAllList()
            .then(function(response) {
@@ -64,5 +58,6 @@
 
         function activate() {
         }  
+            
     }
 })();
