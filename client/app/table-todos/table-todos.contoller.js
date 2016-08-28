@@ -20,7 +20,8 @@
       alert("You have successfully deleted the item")
     }
     vm.deleteTodo = function (activity) {
-      ModalService.open(activity, 'lg', function (result) {
+      let template = '/components/chamModal/views/table-todoModal.html';
+      ModalService.open(activity, template, 'lg', function (result) {
         vm.checkList.splice(result, 1);
       })
         .then(() => showMessage());

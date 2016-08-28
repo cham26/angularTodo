@@ -10,8 +10,6 @@
   /* @ngInject */
   function scheduleManagerService($http) {
 
-    var vm = this;
-
     var Sched = {
       getScheduleTable: getScheduleTable
     };
@@ -24,9 +22,7 @@
         .then(function(response){
           return response;
         })
-        .catch(function(response){
-          console.log(response);
-        });
+        .catch((err) => console.log(err));
     }
 
 

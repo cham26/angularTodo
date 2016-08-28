@@ -1,5 +1,5 @@
 
-const REP_NAME_OF_DAYS = [
+const NAME_OF_DAYS = [
   {dayName: 'Monday'},
   {dayName: 'Tuesday'},
   {dayName: 'Wednesday'},
@@ -8,7 +8,14 @@ const REP_NAME_OF_DAYS = [
   {dayName: 'Saturday'},
   {dayName: 'Sunday'}
 ];
+const SHIFT_NAMES = {
+  DAY: {workHours: 8},
+  NIGHT: {workHours: 7.5},
+  GRAVEYARD: {workHours: 10},
+  OFF: {workHours: 24},
+  LEAVE: {workHours: 24}
+};
 
 angular.module('chamAppApp.scheduleManager')
-  .constant('REP_NAME_OF_DAYS', REP_NAME_OF_DAYS)
-
+  .constant('NAME_OF_DAYS', NAME_OF_DAYS)
+  .constant('SHIFT_NAMES', SHIFT_NAMES);

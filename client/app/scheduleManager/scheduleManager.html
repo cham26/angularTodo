@@ -1,4 +1,4 @@
-<div xmlns="">
+<div>
   <label>Cham's Monthly Schedule</label>
   <div class="month">
     <ul>
@@ -10,16 +10,15 @@
       </li>
     </ul>
   </div>
-
   <ul class="weekdays">
-    <li ng-repeat="name in nameOfDays">{{name.dayName}}</li>
+    <li ng-repeat="name in nameOfDays">
+      {{name.dayName}}
+    </li>
   </ul>
-
   <ul class="days">
-    <li ng-repeat="item in vm.backendSchedule"; ng-click="vm.shiftModal()">{{item.date}}</li>
-
-
+    <li ng-repeat="item in vm.scheduleData"
+        ng-click="vm.openScheduleModal()">
+      {{item.date}}
+    </li>
   </ul>
-
-
 </div>

@@ -9,10 +9,9 @@
 
     /* @ngInject */
     function ModalInstanceController($scope, $uibModalInstance, options) {
-        
+
         $scope.title = 'ModalInstanceController';
         $scope.category = options.items;
-        
 
         $scope.ok = function(x) {
         	options.cb(x);
