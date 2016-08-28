@@ -1,0 +1,25 @@
+<div xmlns="">
+  <label>Cham's Monthly Schedule</label>
+  <div class="month">
+    <ul>
+      <li class="prev">❮</li>
+      <li class="next">❯</li>
+      <li class="nameOfMonth">
+        August<br>
+        <span>2016</span>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="weekdays">
+    <li ng-repeat="name in nameOfDays">{{name.dayName}}</li>
+  </ul>
+
+  <ul class="days">
+    <li ng-repeat="item in vm.backendSchedule"; ng-click="vm.shiftModal()">{{item.date}}</li>
+
+
+  </ul>
+
+
+</div>

@@ -1,0 +1,890 @@
+diff --git a/config/config.json b/config/config.json
+new file mode 100644
+index 0000000..0f858c6
+--- /dev/null
++++ b/config/config.json
+@@ -0,0 +1,23 @@
++{
++  "development": {
++    "username": "root",
++    "password": null,
++    "database": "database_development",
++    "host": "127.0.0.1",
++    "dialect": "mysql"
++  },
++  "test": {
++    "username": "root",
++    "password": null,
++    "database": "database_test",
++    "host": "127.0.0.1",
++    "dialect": "mysql"
++  },
++  "production": {
++    "username": "root",
++    "password": null,
++    "database": "database_production",
++    "host": "127.0.0.1",
++    "dialect": "mysql"
++  }
++}
+diff --git a/models/index.js b/models/index.js
+new file mode 100644
+index 0000000..7540dba
+--- /dev/null
++++ b/models/index.js
+@@ -0,0 +1,36 @@
++'use strict';
++
++var fs        = require('fs');
++var path      = require('path');
++var Sequelize = require('sequelize');
++var basename  = path.basename(module.filename);
++var env       = process.env.NODE_ENV || 'development';
++var config    = require(__dirname + '/../config/config.json')[env];
++var db        = {};
++
++if (config.use_env_variable) {
++  var sequelize = new Sequelize(process.env[config.use_env_variable]);
++} else {
++  var sequelize = new Sequelize(config.database, config.username, config.password, config);
++}
++
++fs
++  .readdirSync(__dirname)
++  .filter(function(file) {
++    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
++  })
++  .forEach(function(file) {
++    var model = sequelize['import'](path.join(__dirname, file));
++    db[model.name] = model;
++  });
++
++Object.keys(db).forEach(function(modelName) {
++  if (db[modelName].associate) {
++    db[modelName].associate(db);
++  }
++});
++
++db.sequelize = sequelize;
++db.Sequelize = Sequelize;
++
++module.exports = db;
+diff --git a/package.json b/package.json
+index e09f3a7..3c05aa6 100644
+--- a/package.json
++++ b/package.json
+@@ -3,29 +3,30 @@
+   "version": "0.0.0",
+   "main": "server/app.js",
+   "dependencies": {
+-    "express": "^4.13.3",
+-    "morgan": "~1.7.0",
++    "babel-polyfill": "^6.7.2",
++    "babel-runtime": "^6.6.1",
+     "body-parser": "^1.13.3",
+-    "method-override": "^2.3.5",
+-    "cookie-parser": "^1.3.5",
+-    "express-session": "^1.11.3",
+-    "errorhandler": "^1.4.2",
+-    "compression": "^1.5.2",
+     "composable-middleware": "^0.3.0",
+-    "lodash": "^4.6.1",
+-    "lusca": "^1.3.0",
+-    "babel-runtime": "^6.6.1",
+-    "babel-polyfill": "^6.7.2",
++    "compression": "^1.5.2",
++    "cookie-parser": "^1.3.5",
+     "ejs": "^2.3.3",
+-    "sequelize": "^3.5.1",
+-    "sqlite3": "~3.1.1",
++    "errorhandler": "^1.4.2",
++    "express": "^4.13.3",
++    "express-jwt": "^3.0.0",
+     "express-sequelize-session": "0.4.0",
++    "express-session": "^1.11.3",
+     "jsonwebtoken": "^7.0.0",
+-    "express-jwt": "^3.0.0",
++    "lodash": "^4.6.1",
++    "lusca": "^1.3.0",
++    "method-override": "^2.3.5",
++    "morgan": "~1.7.0",
++    "mysql": "^2.11.1",
+     "passport": "~0.3.0",
+-    "passport-local": "^1.0.0",
+     "passport-google-oauth20": "^1.0.0",
+-    "serve-favicon": "^2.3.0"
++    "passport-local": "^1.0.0",
++    "sequelize": "^3.5.1",
++    "serve-favicon": "^2.3.0",
++    "sqlite3": "~3.1.1"
+   },
+   "devDependencies": {
+     "autoprefixer": "^6.0.0",
+@@ -111,9 +112,7 @@
+   },
+   "scripts": {
+     "test": "gulp test",
+-
+     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",
+-
+     "start": "node server"
+   },
+   "private": true
+diff --git a/server/api/schedule/index.js b/server/api/schedule/index.js
+new file mode 100644
+index 0000000..57c4035
+--- /dev/null
++++ b/server/api/schedule/index.js
+@@ -0,0 +1,15 @@
++'use strict';
++
++var express = require('express');
++var controller = require('./schedule.controller');
++
++var router = express.Router();
++
++router.get('/', controller.index);
++router.get('/:id', controller.show);
++router.post('/', controller.create);
++router.put('/:id', controller.upsert);
++router.patch('/:id', controller.patch);
++router.delete('/:id', controller.destroy);
++
++module.exports = router;
+diff --git a/server/api/schedule/index.spec.js b/server/api/schedule/index.spec.js
+new file mode 100644
+index 0000000..c549821
+--- /dev/null
++++ b/server/api/schedule/index.spec.js
+@@ -0,0 +1,84 @@
++'use strict';
++
++var proxyquire = require('proxyquire').noPreserveCache();
++
++var scheduleCtrlStub = {
++  index: 'scheduleCtrl.index',
++  show: 'scheduleCtrl.show',
++  create: 'scheduleCtrl.create',
++  upsert: 'scheduleCtrl.upsert',
++  patch: 'scheduleCtrl.patch',
++  destroy: 'scheduleCtrl.destroy'
++};
++
++var routerStub = {
++  get: sinon.spy(),
++  put: sinon.spy(),
++  patch: sinon.spy(),
++  post: sinon.spy(),
++  delete: sinon.spy()
++};
++
++// require the index with our stubbed out modules
++var scheduleIndex = proxyquire('./index.js', {
++  express: {
++    Router() {
++      return routerStub;
++    }
++  },
++  './schedule.controller': scheduleCtrlStub
++});
++
++describe('Schedule API Router:', function() {
++  it('should return an express router instance', function() {
++    expect(scheduleIndex).to.equal(routerStub);
++  });
++
++  describe('GET /y', function() {
++    it('should route to schedule.controller.index', function() {
++      expect(routerStub.get
++        .withArgs('/', 'scheduleCtrl.index')
++        ).to.have.been.calledOnce;
++    });
++  });
++
++  describe('GET /y/:id', function() {
++    it('should route to schedule.controller.show', function() {
++      expect(routerStub.get
++        .withArgs('/:id', 'scheduleCtrl.show')
++        ).to.have.been.calledOnce;
++    });
++  });
++
++  describe('POST /y', function() {
++    it('should route to schedule.controller.create', function() {
++      expect(routerStub.post
++        .withArgs('/', 'scheduleCtrl.create')
++        ).to.have.been.calledOnce;
++    });
++  });
++
++  describe('PUT /y/:id', function() {
++    it('should route to schedule.controller.upsert', function() {
++      expect(routerStub.put
++        .withArgs('/:id', 'scheduleCtrl.upsert')
++        ).to.have.been.calledOnce;
++    });
++  });
++
++  describe('PATCH /y/:id', function() {
++    it('should route to schedule.controller.patch', function() {
++      expect(routerStub.patch
++        .withArgs('/:id', 'scheduleCtrl.patch')
++        ).to.have.been.calledOnce;
++    });
++  });
++
++  describe('DELETE /y/:id', function() {
++    it('should route to schedule.controller.destroy', function() {
++      expect(routerStub.delete
++        .withArgs('/:id', 'scheduleCtrl.destroy')
++        ).to.have.been.calledOnce;
++    });
++  });
++});
+diff --git a/server/api/schedule/schedule.controller.js b/server/api/schedule/schedule.controller.js
+new file mode 100644
+index 0000000..fa97fa7
+--- /dev/null
++++ b/server/api/schedule/schedule.controller.js
+@@ -0,0 +1,133 @@
++/**
++ * Using Rails-like standard naming convention for endpoints.
++ * GET     /y              ->  index
++ * POST    /y              ->  create
++ * GET     /y/:id          ->  show
++ * PUT     /y/:id          ->  upsert
++ * PATCH   /y/:id          ->  patch
++ * DELETE  /y/:id          ->  destroy
++ */
++
++'use strict';
++
++import jsonpatch from 'fast-json-patch';
++import {Schedule} from '../../sqldb';
++
++function respondWithResult(res, statusCode) {
++  statusCode = statusCode || 200;
++  return function(entity) {
++    if(entity) {
++      return res.status(statusCode).json(entity);
++    }
++    return null;
++  };
++}
++
++function patchUpdates(patches) {
++  return function(entity) {
++    try {
++      jsonpatch.apply(entity, patches, /*validate*/ true);
++    } catch(err) {
++      return Promise.reject(err);
++    }
++
++    return entity.save();
++  };
++}
++
++function removeEntity(res) {
++  return function(entity) {
++    if(entity) {
++      return entity.destroy()
++        .then(() => {
++          res.status(204).end();
++        });
++    }
++  };
++}
++
++function handleEntityNotFound(res) {
++  return function(entity) {
++    if(!entity) {
++      res.status(404).end();
++      return null;
++    }
++    return entity;
++  };
++}
++
++function handleError(res, statusCode) {
++  statusCode = statusCode || 500;
++  return function(err) {
++    res.status(statusCode).send(err);
++  };
++}
++
++// Gets a list of Schedules
++export function index(req, res) {
++  return Schedule.findAll()
++    .then(respondWithResult(res))
++    .catch(handleError(res));
++}
++
++// Gets a single Schedule from the DB
++export function show(req, res) {
++  return Schedule.find({
++    where: {
++      _id: req.params.id
++    }
++  })
++    .then(handleEntityNotFound(res))
++    .then(respondWithResult(res))
++    .catch(handleError(res));
++}
++
++// Creates a new Schedule in the DB
++export function create(req, res) {
++  return Schedule.create(req.body)
++    .then(respondWithResult(res, 201))
++    .catch(handleError(res));
++}
++
++// Upserts the given Schedule in the DB at the specified ID
++export function upsert(req, res) {
++  if(req.body._id) {
++    delete req.body._id;
++  }
++
++  return Schedule.upsert(req.body, {
++    where: {
++      _id: req.params.id
++    }
++  })
++    .then(respondWithResult(res))
++    .catch(handleError(res));
++}
++
++// Updates an existing Schedule in the DB
++export function patch(req, res) {
++  if(req.body._id) {
++    delete req.body._id;
++  }
++  return Schedule.find({
++    where: {
++      _id: req.params.id
++    }
++  })
++    .then(handleEntityNotFound(res))
++    .then(patchUpdates(req.body))
++    .then(respondWithResult(res))
++    .catch(handleError(res));
++}
++
++// Deletes a Schedule from the DB
++export function destroy(req, res) {
++  return Schedule.find({
++    where: {
++      _id: req.params.id
++    }
++  })
++    .then(handleEntityNotFound(res))
++    .then(removeEntity(res))
++    .catch(handleError(res));
++}
+diff --git a/server/api/schedule/schedule.events.js b/server/api/schedule/schedule.events.js
+new file mode 100644
+index 0000000..b988269
+--- /dev/null
++++ b/server/api/schedule/schedule.events.js
+@@ -0,0 +1,35 @@
++/**
++ * Schedule model events
++ */
++
++'use strict';
++
++import {EventEmitter} from 'events';
++var Schedule = require('../../sqldb').Schedule;
++var ScheduleEvents = new EventEmitter();
++
++// Set max event listeners (0 == unlimited)
++ScheduleEvents.setMaxListeners(0);
++
++// Model events
++var events = {
++  afterCreate: 'save',
++  afterUpdate: 'save',
++  afterDestroy: 'remove'
++};
++
++// Register the event emitter to the model events
++for(var e in events) {
++  let event = events[e];
++  Schedule.hook(e, emitEvent(event));
++}
++
++function emitEvent(event) {
++  return function(doc, options, done) {
++    ScheduleEvents.emit(event + ':' + doc._id, doc);
++    ScheduleEvents.emit(event, doc);
++    done(null);
++  };
++}
++
++export default ScheduleEvents;
+diff --git a/server/api/schedule/schedule.integration.js b/server/api/schedule/schedule.integration.js
+new file mode 100644
+index 0000000..5fb26b6
+--- /dev/null
++++ b/server/api/schedule/schedule.integration.js
+@@ -0,0 +1,188 @@
++'use strict';
++
++var app = require('../..');
++import request from 'supertest';
++
++var newSchedule;
++
++describe('Schedule API:', function() {
++  describe('GET /y', function() {
++    var schedules;
++
++    beforeEach(function(done) {
++      request(app)
++        .get('/y')
++        .expect(200)
++        .expect('Content-Type', /json/)
++        .end((err, res) => {
++          if(err) {
++            return done(err);
++          }
++          schedules = res.body;
++          done();
++        });
++    });
++
++    it('should respond with JSON array', function() {
++      expect(schedules).to.be.instanceOf(Array);
++    });
++  });
++
++  describe('POST /y', function() {
++    beforeEach(function(done) {
++      request(app)
++        .post('/y')
++        .send({
++          name: 'New Schedule',
++          info: 'This is the brand new schedule!!!'
++        })
++        .expect(201)
++        .expect('Content-Type', /json/)
++        .end((err, res) => {
++          if(err) {
++            return done(err);
++          }
++          newSchedule = res.body;
++          done();
++        });
++    });
++
++    it('should respond with the newly created schedule', function() {
++      expect(newSchedule.name).to.equal('New Schedule');
++      expect(newSchedule.info).to.equal('This is the brand new schedule!!!');
++    });
++  });
++
++  describe('GET /y/:id', function() {
++    var schedule;
++
++    beforeEach(function(done) {
++      request(app)
++        .get(`/y/${newSchedule._id}`)
++        .expect(200)
++        .expect('Content-Type', /json/)
++        .end((err, res) => {
++          if(err) {
++            return done(err);
++          }
++          schedule = res.body;
++          done();
++        });
++    });
++
++    afterEach(function() {
++      schedule = {};
++    });
++
++    it('should respond with the requested schedule', function() {
++      expect(schedule.name).to.equal('New Schedule');
++      expect(schedule.info).to.equal('This is the brand new schedule!!!');
++    });
++  });
++
++  describe('PUT /y/:id', function() {
++    var updatedSchedule;
++
++    beforeEach(function(done) {
++      request(app)
++        .put(`/y/${newSchedule._id}`)
++        .send({
++          name: 'Updated Schedule',
++          info: 'This is the updated schedule!!!'
++        })
++        .expect(200)
++        .expect('Content-Type', /json/)
++        .end(function(err, res) {
++          if(err) {
++            return done(err);
++          }
++          updatedSchedule = res.body;
++          done();
++        });
++    });
++
++    afterEach(function() {
++      updatedSchedule = {};
++    });
++
++    it('should respond with the original schedule', function() {
++      expect(updatedSchedule.name).to.equal('New Schedule');
++      expect(updatedSchedule.info).to.equal('This is the brand new schedule!!!');
++    });
++
++    it('should respond with the updated schedule on a subsequent GET', function(done) {
++      request(app)
++        .get(`/y/${newSchedule._id}`)
++        .expect(200)
++        .expect('Content-Type', /json/)
++        .end((err, res) => {
++          if(err) {
++            return done(err);
++          }
++          let schedule = res.body;
++
++          expect(schedule.name).to.equal('Updated Schedule');
++          expect(schedule.info).to.equal('This is the updated schedule!!!');
++
++          done();
++        });
++    });
++  });
++
++  describe('PATCH /y/:id', function() {
++    var patchedSchedule;
++
++    beforeEach(function(done) {
++      request(app)
++        .patch(`/y/${newSchedule._id}`)
++        .send([
++          { op: 'replace', path: '/name', value: 'Patched Schedule' },
++          { op: 'replace', path: '/info', value: 'This is the patched schedule!!!' }
++        ])
++        .expect(200)
++        .expect('Content-Type', /json/)
++        .end(function(err, res) {
++          if(err) {
++            return done(err);
++          }
++          patchedSchedule = res.body;
++          done();
++        });
++    });
++
++    afterEach(function() {
++      patchedSchedule = {};
++    });
++
++    it('should respond with the patched schedule', function() {
++      expect(patchedSchedule.name).to.equal('Patched Schedule');
++      expect(patchedSchedule.info).to.equal('This is the patched schedule!!!');
++    });
++  });
++
++  describe('DELETE /y/:id', function() {
++    it('should respond with 204 on successful removal', function(done) {
++      request(app)
++        .delete(`/y/${newSchedule._id}`)
++        .expect(204)
++        .end(err => {
++          if(err) {
++            return done(err);
++          }
++          done();
++        });
++    });
++
++    it('should respond with 404 when schedule does not exist', function(done) {
++      request(app)
++        .delete(`/y/${newSchedule._id}`)
++        .expect(404)
++        .end(err => {
++          if(err) {
++            return done(err);
++          }
++          done();
++        });
++    });
++  });
++});
+diff --git a/server/api/schedule/schedule.model.js b/server/api/schedule/schedule.model.js
+new file mode 100644
+index 0000000..da309b5
+--- /dev/null
++++ b/server/api/schedule/schedule.model.js
+@@ -0,0 +1,16 @@
++'use strict';
++
++export default function(sequelize, DataTypes) {
++  return sequelize.define('Schedule', {
++    _id: {
++      type: DataTypes.INTEGER,
++      allowNull: false,
++      primaryKey: true,
++      autoIncrement: true
++    },
++    day: DataTypes.STRING,
++    date: DataTypes.INTEGER,
++    isWorking: DataTypes.BOOLEAN,
++    shift: DataTypes.STRING
++  });
++}
+diff --git a/server/config/environment/development.js b/server/config/environment/development.js
+index b524f31..3cc89fb 100644
+--- a/server/config/environment/development.js
++++ b/server/config/environment/development.js
+@@ -6,7 +6,7 @@ module.exports = {
+ 
+   // Sequelize connection opions
+   sequelize: {
+-    uri: 'sqlite://',
++    uri: 'postgres://postgres:password@127.0.0.1:5432/cham',
+     options: {
+       logging: false,
+       storage: 'dev.sqlite',
+diff --git a/server/config/seed.js b/server/config/seed.js
+index 0cc4896..4edac30 100644
+--- a/server/config/seed.js
++++ b/server/config/seed.js
+@@ -7,6 +7,7 @@
+ import sqldb from '../sqldb';
+ var Thing = sqldb.Thing;
+ var User = sqldb.User;
++var Schedule = sqldb.Schedule
+ 
+ Thing.sync()
+   .then(() => {
+@@ -62,3 +63,201 @@ User.sync()
+       console.log('finished populating users');
+     });
+   });
++
++  Schedule.sync()
++  .then(() => Schedule.destroy({ where: {} }))
++  .then(() => {
++    Schedule.bulkCreate([
++    {
++      day: 'Monday',
++      date: 1,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Tuesday',
++      date: 2,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Wendsday',
++      date: 3,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Thursday',
++      date: 4,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Friday',
++      date: 5,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Saturday',
++      date: 6,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Sunday',
++      date: 7,
++      isWorking: false,
++      shift: null
++    },
++    {
++      day: 'Monday',
++      date: 1,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Tuesday',
++      date: 2,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Wendsday',
++      date: 3,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Thursday',
++      date: 4,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Friday',
++      date: 5,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Saturday',
++      date: 6,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Sunday',
++      date: 7,
++      isWorking: false,
++      shift: null
++    },
++    {
++      day: 'Monday',
++      date: 1,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Tuesday',
++      date: 2,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Wendsday',
++      date: 3,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Thursday',
++      date: 4,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Friday',
++      date: 5,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Saturday',
++      date: 6,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Sunday',
++      date: 7,
++      isWorking: false,
++      shift: null
++    },
++    {
++      day: 'Monday',
++      date: 1,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Tuesday',
++      date: 2,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Wendsday',
++      date: 3,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Thursday',
++      date: 4,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Friday',
++      date: 5,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Saturday',
++      date: 6,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Sunday',
++      date: 7,
++      isWorking: false,
++      shift: null
++    },
++    {
++      day: 'Monday',
++      date: 1,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Tuesday',
++      date: 2,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Wendsday',
++      date: 3,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Thursday',
++      date: 4,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Friday',
++      date: 5,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Saturday',
++      date: 6,
++      isWorking: false,
++      shift: null
++    }, {
++      day: 'Sunday',
++      date: 7,
++      isWorking: false,
++      shift: null
++    }
++    ])
++    .then(() => {
++      console.log('finished populating schedules');
++    });
++  });
++
++
++
++
++
++
++
++
+diff --git a/server/routes.js b/server/routes.js
+index 0d07cde..4b5c0fe 100644
+--- a/server/routes.js
++++ b/server/routes.js
+@@ -9,6 +9,7 @@ import path from 'path';
+ 
+ export default function(app) {
+   // Insert routes below
++  app.use('/y', require('./api/schedule'));
+   app.use('/api/things', require('./api/thing'));
+   app.use('/api/users', require('./api/user'));
+ 
+diff --git a/server/sqldb/index.js b/server/sqldb/index.js
+index 54cba49..8703a03 100644
+--- a/server/sqldb/index.js
++++ b/server/sqldb/index.js
+@@ -14,6 +14,7 @@ var db = {
+ };
+ 
+ // Insert models below
++db.Schedule = db.sequelize.import('../api/schedule/schedule.model');
+ db.Thing = db.sequelize.import('../api/thing/thing.model');
+ db.User = db.sequelize.import('../api/user/user.model');
+ 
