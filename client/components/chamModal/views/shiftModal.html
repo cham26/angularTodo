@@ -1,19 +1,11 @@
-<style>
- li {
-    width: 50px;
-    border: 1px gray;
-    padding: 1px;
-    margin: 2px;
-  }
-</style>
 <div class="modal-header">
-  <h3 class="modal-title">Choose Your Shift</h3>
+  <h3 class="modal-title">August {{item[0].date}}, 2016 {{item[0].day}}</h3>
 </div>
 <div class="modal-body">
-  <ul>
-    <li ng-repeat="shift in vm.shiftDays">
-      <a href="#" ng-click="$event.preventDefault(); vm.selected.shift = shift">{{shiftDays.shiftName}}</a>
-    </li>
+  {{item}}
+  <ul ng-repeat="(key, val) in namesOfShift">
+    {{val.shortcut}}
+    <span>{{namesOfShift.title}}</span>
   </ul>
 </div>
 <div class="modal-footer">

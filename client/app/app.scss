@@ -20,6 +20,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 @import 'admin/admin';
 @import 'main/main';
 @import 'scheduleManager/scheduleManagerStyle';
+@import '../components/chamModal/views/ModalStyles';
 @import '../components/footer/footer';
 @import '../components/modal/modal';
 @import '../components/oauth-buttons/oauth-buttons';

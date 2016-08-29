@@ -11,12 +11,12 @@
     function ModalInstanceController($scope, $uibModalInstance, options) {
 
         $scope.title = 'ModalInstanceController';
-        $scope.category = options.items;
 
+        $scope.item = options.items;
         $scope.ok = function(x) {
         	options.cb(x);
         	console.log(x);
-        	$uibModalInstance.close($scope.category);
+        	$uibModalInstance.close($scope.item);
         };
 
         $scope.cancel = function() {
