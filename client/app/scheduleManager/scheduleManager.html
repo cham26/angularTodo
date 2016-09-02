@@ -16,9 +16,9 @@
     </li>
   </ul>
   <ul class="days">
-    <li ng-repeat="item in vm.scheduleData"
-        ng-click="vm.openScheduleModal(item)">
-      {{item.date}}
+    <li ng-repeat="dayOfWeek in vm.scheduleData"
+        ng-click="vm.openScheduleModal(dayOfWeek)">
+      {{dayOfWeek.date}}
     </li>
   </ul>
 </div>

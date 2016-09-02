@@ -17,8 +17,11 @@
         vm.scheduleData = response.data;
       });
     vm.namesOfShift = SHIFT_NAMES;
-    vm.openScheduleModal = function (hair){
-      let popupArgs = [hair, vm.namesOfShift]
+    vm.openScheduleModal = function (dayOfWeek){
+      let popupArgs = {
+        selectedDay: dayOfWeek,
+        shiftName: SHIFT_NAMES
+      };
       let template = '/components/chamModal/views/shiftModal.html';
       ModalService.open(popupArgs, template, 'lg', function(result) {
         console.log(result);

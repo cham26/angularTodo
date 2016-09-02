@@ -1,46 +1,49 @@
-.btn1 {
-  color : #000000;
-  background-color: #20B2AA;
-  width: 40px;
+.scheduleDayButton {
+  background-color: #40E0D0;
   padding: 5px;
   margin: 5px;
-  border-radius: 2px;
-  font-size: 16px;
+  width: 20px;
+  display: block;
 };
-.btn2 {
-  color : #000000;
-  background-color: #DC143C;
-  width: 40px;
+
+.scheduleNightButton {
+  background-color: #FF4500;
   padding: 5px;
   margin: 5px;
-  border-radius: 2px;
-  font-size: 16px;
+  width: 20px;
+  display: block;
 };
-.btn3 {
-  color : #000000;
-  background-color: #7B68EE;
-  width: 40px;
+
+.scheduleGraveyardButton {
+  background-color: #DDA0DD;
   padding: 5px;
   margin: 5px;
-  border-radius: 2px;
-  font-size: 16px;
+  width: 20px;
+  display: block;
 };
-.btn4 {
-  color : #000000;
-  background-color: #FFA500;
-  width: 40px;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 2px;
-  font-size: 16px;
-};
-.btn5 {
-  color : #000000;
+
+.scheduleOffButton {
   background-color: #9ACD32;
-  width: 40px;
   padding: 5px;
   margin: 5px;
-  border-radius: 2px;
-  font-size: 16px;
+  width: 20px;
+  display: block;
 };
+
+.scheduleLeaveButton {
+  background-color: #FFFF00;
+  padding: 5px;
+  margin: 5px;
+  width: 20px;
+  display: block;
+};
+
+.names {
+  position: absolute;
+  text-align: center;
+  left: 50px;
+}
+
+
+
 
