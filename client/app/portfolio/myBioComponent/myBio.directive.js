@@ -1,3 +1,12 @@
-/**
- * Created by AMSTERDAM on 9/6/2016.
- */
+'use strict';
+
+angular
+  .module('chamAppApp.portfolio')
+  .directive('myBio', function() {
+    return {
+      templateUrl: 'app/portfolio/myBioComponent/myBio.html',
+      restrict: 'E',
+      controller: 'portfolioController',
+      controllerAs: 'vm'
+    };
+  });
