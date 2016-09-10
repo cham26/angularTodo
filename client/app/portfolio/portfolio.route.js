@@ -8,7 +8,7 @@ angular.module('chamAppApp.portfolio')
     $stateProvider.state('portfolio', {
       url: '/portfolio',
       templateUrl: 'app/portfolio/portfolio.html',
-      controller: 'portfolioController',
-      controllerAs: 'vm'
+      controller: 'PortfolioController',
+      controllerAs: '$ctrl'
     });
   });
