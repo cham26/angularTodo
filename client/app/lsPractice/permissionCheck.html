@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Permission Check</title>
+</head>
+<body>
+<div>
+  <label>Users Only:</label>
+    <button type="button"
+            class="btn btn-primary"
+            ng-disabled="vm.permission.authorizedAsAdmin()">Create New Content
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            ng-disabled="vm.permission.authorizedAsAdmin()">Design Page
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            ng-disabled="vm.permission.authorizedAsAdmin()">Add New Content
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            ng-disabled="vm.permission.authorizedAsAdmin()">Edit Content
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            ng-disabled="vm.permission.authorizedAsAdmin()">Submit
+    </button>
+</div>
+<br>
+<div>
+  <label>Admin Only:</label>
+  <button type="button"
+          class="btn btn-primary"
+          ng-disabled="vm.permission.authorizedAsUser()">Add New members
+  </button>
+  <button type="button"
+          class="btn btn-primary"
+          ng-disabled="vm.permission.authorizedAsUser()">Approve Content
+  </button>
+  <button type="button"
+          class="btn btn-primary"
+          ng-disabled="vm.permission.authorizedAsUser()">Create Rules
+  </button>
+  <button type="button"
+          class="btn btn-primary"
+          ng-disabled="vm.permission.authorizedAsUser()">Approve Edit
+  </button>
+  <button type="button"
+          class="btn btn-primary"
+          ng-disabled="vm.permission.authorizedAsUser()">Final Approval
+  </button>
+</div>
+
+</body>
+</html>

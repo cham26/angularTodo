@@ -1,0 +1,134 @@
+#mainBox {
+  background-color: #000000;
+};
+
+#searchBox {
+  background-color: #808080;
+  height: 80px;
+  padding: 2px;
+};
+
+#commentBox {
+  background-color: #f2f2f2;
+  padding: 20px;
+};
+
+#symbolBox {
+  background-color: #808080;
+};
+
+#adverBox {
+  background-color: #0d0d0d;
+};
+
+.navbar-brand {
+  font-size: 150%;
+  font-family: Gill Sans, sans-serif;
+};
+
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 80px;
+};
+
+.p1 {
+  text-align: center;
+  color: #1E90FF;
+  font-size: 18px;
+};
+
+.p2 {
+  text-align: center;
+  color: #C0C0C0;
+  font-size: 12px;
+};
+
+.signatureImage {
+  width: 150px;
+  height: 100px;
+  float: right;
+};
+#desktopCorner {
+  margin-top: 40px;
+  margin-bottom: 20px;
+};
+
+#webAppCorner {
+  margin-top: 40px;
+  margin-bottom: 20px;
+};
+
+#antivirusCorner {
+  margin-top: 40px;
+  margin-bottom: 20px;
+};
+
+.forDesktopSoftwareImage {
+  width: 80px;
+  height: 80px;
+};
+
+.desktopSoftwareTitle {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #ffcc33;
+  color: #ffcc33;
+  line-height: 40%;
+};
+
+.desktopSoftwareCaption1 {
+  font-size: 12px;
+  color: #C0C0C0;
+  line-height: 90%;
+};
+
+.desktopSoftwareCaption2 {
+  font-size: 10px;
+  color: #806000;
+  line-height: 30%;
+};
+
+.subscribeMessage {
+  text-align: center;
+  font-weight: bold;
+};
+
+.subscribeBox{
+  text-align: center;
+};
+.forSearchBox {
+  width: 300px;
+};
+.btn {
+  padding: 3px;
+};
+#feedbackCorner {
+  margin-bottom: 20px;
+};
+.feedbackCornerImage {
+  width: 80px;
+  height: 80px;
+};
+.feedbackText {
+  font-size: 11px;
+  font-weight: bold;
+};
+.feedbackTextName {
+  font-size: 10px;
+  font-style: italic;
+  line-height: 20%;
+};
+.bookCorner {
+  background-color: #66ff66;
+  width: 300px;
+  height: 100px;
+  padding: 10px;
+  margin: 25px;
+
+};
+.bookImage {
+  width: 70px;
+  height: 80px;
+}

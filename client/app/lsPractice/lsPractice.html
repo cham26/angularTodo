@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Session Page</title>
+</head>
+<body>
+  <div>
+    <button type="button"
+            class="btn btn-default"
+            ng-click="vm.setUserRole('User')">User
+    </button>
+    <button type="button"
+            class="btn btn-default"
+            ng-click="vm.setUserRole('Admin')">Admin
+    </button>
+  </div>
+  <span>{{vm.displayMessage()}}</span>
+</body>
+</html>
